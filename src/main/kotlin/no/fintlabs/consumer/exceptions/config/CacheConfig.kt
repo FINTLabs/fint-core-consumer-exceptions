@@ -13,7 +13,7 @@ class CacheConfig {
     @Bean
     fun consumerErrorCache(): Cache<String, ConsumerError> =
         Caffeine.newBuilder()
-            .expireAfterWrite(Duration.ofHours(1))
+            .expireAfterWrite(Duration.ofDays(7))
             .build()
 
 }
