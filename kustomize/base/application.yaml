@@ -1,7 +1,7 @@
 apiVersion: fintlabs.no/v1alpha1
 kind: Application
 metadata:
-  name: fint-core-consumer
+  name: fint-core-consumer-exceptions
   namespace: fintlabs-no
 spec:
   port: 8080
