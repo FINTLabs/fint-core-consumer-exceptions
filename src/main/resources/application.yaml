@@ -1,0 +1,16 @@
+fint:
+  kafka:
+    topic:
+      org-id: ${fint.org-id}
+      domain-context: fint-core
+    application-id: fint-core-consumer-exceptions
+
+spring:
+  kafka:
+    consumer:
+      group-id: ${fint.kafka.application-id}
+
+logging:
+  level:
+    org.apache.kafka: OFF
+    no.fintlabs.kafka: OFF
