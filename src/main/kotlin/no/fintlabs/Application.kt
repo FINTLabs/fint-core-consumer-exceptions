@@ -1,4 +1,4 @@
-package no.fintlabs.consumer.exceptions
+package no.fintlabs
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
