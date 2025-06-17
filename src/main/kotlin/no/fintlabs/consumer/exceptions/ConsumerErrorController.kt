@@ -23,4 +23,23 @@ class ConsumerErrorController(
             ?.let { ResponseEntity.ok(it) }
             ?: ResponseEntity.notFound().build()
 
+    @GetMapping("/{id}/stacktrace")
+    fun getFormattedStacktrace(@PathVariable id: String): ResponseEntity<String> =
+        errorCache.getIfPresent(id)
+            ?.let { ResponseEntity.ok(formatException(it)) }
+            ?: ResponseEntity.notFound().build()
+
+    private fun formatException(error: ConsumerError): String =
+        (listOf(error.name + (error.message?.let { ": $it" } ?: "")) + error.stacktrace.map(::formatFrame))
+            .joinToString("\n")
+
+    private fun formatFrame(e: StackTraceElement): String =
+        "    at ${e.className}.${e.methodName}(" +
+                when {
+                    e.isNativeMethod -> "Native Method"
+                    e.fileName.isNullOrBlank() || e.lineNumber < 0 -> "Unknown Source"
+                    else -> "${e.fileName}:${e.lineNumber}"
+                } +
+                ")"
+
 }
