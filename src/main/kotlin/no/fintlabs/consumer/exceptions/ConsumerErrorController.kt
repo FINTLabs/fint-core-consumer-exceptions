@@ -1,6 +1,7 @@
 package no.fintlabs.consumer.exceptions
 
 import com.github.benmanes.caffeine.cache.Cache
+import no.fintlabs.consumer.exceptions.model.OrgErrorStats
 import no.fintlabs.status.models.error.ConsumerError
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,6 +17,10 @@ class ConsumerErrorController(
 
     @GetMapping
     fun getConsumerErrors() = errorCache.asMap().values
+
+    @GetMapping("/stats")
+    fun getStats(): Map<String, OrgErrorStats> =
+        errorCache.asMap().values.toOrgStats()
 
     @GetMapping("/{id}")
     fun getConsumerError(@PathVariable id: String) =
